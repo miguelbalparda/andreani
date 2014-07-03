@@ -164,11 +164,13 @@ class Ecloud_Andreani_Model_Observer extends Mage_Core_Model_Session_Abstract {
 			Mage::log("Constancia de entrega URL " . print_r($ConstanciaURL,true));
 
 			$id = intval($datos["id"]);
-			Mage::getModel('andreani/order')->load($id)->setData('cod_tracking',$phpresponse->ConfirmarCompraResult->NumeroAndreani)->save();
-			Mage::getModel('andreani/order')->load($id)->setData('recibo_tracking',$phpresponse->ConfirmarCompraResult->Recibo)->save();
-			Mage::getModel('andreani/order')->load($id)->setData('estado','Enviado')->save();
-			Mage::getModel('andreani/order')->load($id)->setData('constancia',$ConstanciaURL)->save();
-
+			$order = Mage::getModel('andreani/order')->load($id); 
+			$order->setData('cod_tracking',$phpresponse->ConfirmarCompraResult->NumeroAndreani); 
+			$order->setData('recibo_tracking',$phpresponse->ConfirmarCompraResult->Recibo)->save(); 
+			$order->setData('estado','Enviado')->save(); 
+			$order->setData('constancia',$ConstanciaURL); 
+			$order->save();
+			
 
 		} catch (SoapFault $e) {
 			Mage::log("Error: " . $e);
