@@ -64,8 +64,7 @@ class Ecloud_Andreani_Model_Observer extends Mage_Core_Model_Session_Abstract {
 
 		// 1. Tomamos los datos de la orden segun el ID en la tabla "andreani_order"
 		$shipment = $observer->getEvent()->getShipment();
-		$order 	  = $shipment->getOrder();
-		$OrderId  = $order->getId();
+		$OrderId  = $shipment->getOrder()->getId();
 
 
 		// Traemos los datos de la tabla "andreani_order" según el OrderId[0] y asignarla a $datos
